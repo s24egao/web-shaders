@@ -125,7 +125,7 @@ void main() {
 
 	gl_FragColor = mix(texture2D(texture1, vTexcoord), texture2D(texture2, vTexcoord), clamp(mousehover * 4.0 + id * 2.0 - 2.0, 0.0, 1.0));
 }
-`, { image: [ './image2.jpg', './image1.jpg' ], listenMouseHover: true }).then(s => s.setUniform('aspect', 1 / 1))
+`, { image: [ './image2.jpg', './image1.jpg' ], listenMouseHover: true })
 
 
 
