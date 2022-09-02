@@ -20,7 +20,6 @@ precision highp float;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2;
-uniform vec2 mouse;
 uniform float time;
 uniform float mousehover;
 
@@ -51,7 +50,7 @@ void main() {
 
 	gl_FragColor = mix(color1, color2, step(0.5, mousehover));
 }
-`, { image: [ './image1.jpg', './image2.jpg' ], listenMouseHover: true })
+`, { image: [ './image1.jpg', './image2.jpg' ] })
 
 
 
@@ -61,7 +60,6 @@ precision highp float;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2; 
-uniform vec2 mouse;
 uniform float mousehover;
 
 varying vec2 vTexcoord;
@@ -79,7 +77,7 @@ void main() {
 	
 	gl_FragColor = mix(texture2D(texture1, uv1), texture2D(texture2, uv2), mousehover);
 }
-`, { image: [ './image1.jpg', './image2.jpg' ], listenMouseHover: true })
+`, { image: [ './image1.jpg', './image2.jpg' ] })
 
 
 
@@ -89,7 +87,6 @@ precision highp float;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2;
-uniform vec2 mouse;
 uniform float mousehover;
 
 varying vec2 vTexcoord;
@@ -109,12 +106,12 @@ void main() {
 	float id = random((vTexcoord * 10.0));
 	vec2 uv1 = vTexcoord;
 	vec2 uv2 = vTexcoord;
-	rotate(uv1, (mousehover) * 3.0 * id);
-	rotate(uv2, -(1.0 - mousehover) * 3.0 * id);
+	rotate(uv1, (mousehover) * 3.1415 * id);
+	rotate(uv2, -(1.0 - mousehover) * 3.1415 * id);
 	
 	gl_FragColor = mix(texture2D(texture1, uv1), texture2D(texture2, uv2), mousehover);
 }
-`, { image: [ './image1.jpg', './image2.jpg' ], listenMouseHover: true })
+`, { image: [ './image1.jpg', './image2.jpg' ] })
 
 
 
@@ -124,8 +121,6 @@ precision highp float;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2;
-uniform vec2 mouse;
-uniform float time;
 uniform float mousehover;
 
 varying vec2 vTexcoord;
@@ -139,7 +134,7 @@ void main() {
 
 	gl_FragColor = mix(texture2D(texture1, vTexcoord), texture2D(texture2, vTexcoord), clamp(mousehover * 4.0 + id * 2.0 - 2.0, 0.0, 1.0));
 }
-`, { image: [ './image1.jpg', './image2.jpg' ], listenMouseHover: true })
+`, { image: [ './image1.jpg', './image2.jpg' ] })
 
 
 
@@ -149,8 +144,6 @@ precision highp float;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2; 
-uniform vec2 mouse;
-uniform float time;
 uniform float mousehover;
 
 varying vec2 vTexcoord;
@@ -166,12 +159,12 @@ void main() {
 	float id = sin(length(vTexcoord - vec2(0.5)) * 10.0);
 	vec2 uv1 = vTexcoord;
 	vec2 uv2 = vTexcoord;
-	rotate(uv1, mousehover * id * (1.0 - length(uv1 - vec2(0.5))) * 3.0);
-	rotate(uv2, -(1.0 - mousehover) * id * (1.0 - length(uv2 - vec2(0.5, 0.5))) * 3.0);
+	rotate(uv1, mousehover * id * (1.0 - length(uv1 - vec2(0.5))) * 6.283);
+	rotate(uv2, -(1.0 - mousehover) * id * (1.0 - length(uv2 - vec2(0.5, 0.5))) * 6.283);
 	
 	gl_FragColor = mix(texture2D(texture1, uv1), texture2D(texture2, uv2), mousehover);
 }
-`, { image: [ './image1.jpg', './image2.jpg' ], listenMouseHover: true })
+`, { image: [ './image1.jpg', './image2.jpg' ] })
 
 
 
@@ -181,7 +174,6 @@ precision highp float;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2;
-uniform vec2 mouse;
 uniform float mousehover;
 
 varying vec2 vTexcoord;
@@ -202,7 +194,7 @@ void main() {
 	gl_FragColor = texture2D(texture1, uv1);
 	gl_FragColor = mix(texture2D(texture1, uv1), texture2D(texture2, uv2), mousehover);
 }
-`, { image: [ './image1.jpg', './image2.jpg' ], listenMouseHover: true })
+`, { image: [ './image1.jpg', './image2.jpg' ] })
 
 
 
@@ -212,7 +204,6 @@ precision highp float;
 
 uniform sampler2D texture1;
 uniform sampler2D texture2;
-uniform vec2 mouse;
 uniform float mousehover;
 
 varying vec2 vTexcoord;
@@ -232,12 +223,12 @@ void main() {
 	float id = random((vTexcoord * 10.0));
 	vec2 uv1 = vTexcoord;
 	vec2 uv2 = vTexcoord;
-	scale(uv1, 1.0 + (mousehover) * id * 0.5);
-	scale(uv2, 1.0 - (1.0 - mousehover) * id * 0.5);
+	scale(uv1, 1.0 + (mousehover) * id * 0.9);
+	scale(uv2, 1.0 - (1.0 - mousehover) * id * 0.9);
 	
 	gl_FragColor = mix(texture2D(texture1, uv1), texture2D(texture2, uv2), mousehover);
 }
-`, { image: [ './image1.jpg', './image2.jpg' ], listenMouseHover: true })
+`, { image: [ './image1.jpg', './image2.jpg' ] })
 
 
 
@@ -248,9 +239,7 @@ precision highp float;
 uniform sampler2D texture1;
 uniform sampler2D texture2;
 uniform sampler2D texture3;
-uniform vec2 mouse;
 uniform float mousehover;
-uniform float time;
 
 varying vec2 vTexcoord;
 
@@ -258,12 +247,10 @@ void main() {
 	vec2 uv1 = vTexcoord;
 	vec2 uv2 = vTexcoord;
 	float displace = texture2D(texture3, vTexcoord).r;
-	// uv1.y -= mousehover * displace;
-	// uv2.y += (1.0 - mousehover) * displace;
 
-	uv1 -= vec2(cos(displace * 6.283), sin(displace * 6.283)) * mousehover * 0.2;
-	uv2 += vec2(cos(displace * 6.283), sin(displace * 6.283)) * (1.0 - mousehover) * 0.2;
+	uv1 -= vec2(cos(displace * 6.283), sin(displace * 6.283)) * mousehover * 0.3;
+	uv2 += vec2(cos(displace * 6.283), sin(displace * 6.283)) * (1.0 - mousehover) * 0.3;
 	
 	gl_FragColor = mix(texture2D(texture1, uv1), texture2D(texture2, uv2), mousehover) ;
 }
-`, { image: [ './noise.png', './image2.jpg', './image1.jpg' ], listenMouseHover: true })
+`, { image: [ './noise.png', './image2.jpg', './image1.jpg' ] })
