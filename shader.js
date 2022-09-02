@@ -63,30 +63,26 @@ async function shader(id, vert, frag, data) {
 		gl.uniform2f(mouse, e.offsetX / canvas.clientWidth, 1 - e.offsetY / canvas.clientHeight)
 	})
 
+	let ismousehover = false
+	let transition = 0
+	let mousehover = gl.getUniformLocation(program, 'mousehover')
+	canvas.addEventListener('mouseenter', () => {
+		ismousehover = true
+	})
+	canvas.addEventListener('mouseleave', () => {
+		ismousehover = false
+	})
+
 	let time = gl.getUniformLocation(program, 'time')
 	let t = 0
 	gl.uniform1f(time, 0)
 	setInterval(() => {
 		t += 0.02
 		gl.uniform1f(time, t)
+		if(ismousehover) transition = lerp(transition, 1, 0.1)
+		else transition = lerp(transition, 0, 0.1)
+		gl.uniform1f(mousehover, transition)
 	}, 20)
-
-	if(data.listenMouseHover) {
-		let mouseover = false
-		let transition = 0
-		let uniform = gl.getUniformLocation(program, 'mousehover')
-		canvas.addEventListener('mouseenter', () => {
-			mouseover = true
-		})
-		canvas.addEventListener('mouseleave', () => {
-			mouseover = false
-		})
-		setInterval(() => {
-			if(mouseover) transition = lerp(transition, 1, 0.1)
-			else transition = lerp(transition, 0, 0.1)
-			gl.uniform1f(uniform, transition)
-		}, 20)
-	}
 
 	let url = data.image
 	let images = []
@@ -109,10 +105,6 @@ async function shader(id, vert, frag, data) {
 	return {
 		canvas: canvas,
 		gl: gl,
-		program: program,
-		setUniform: (name, value) => {
-			let uniform = gl.getUniformLocation(program, name)
-			gl.uniform1f(uniform, value)
-		}
+		program: program
 	}
 }

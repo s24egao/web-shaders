@@ -7,6 +7,9 @@
 	<meta name="description" content="Interactive Web Shader Effects Playground">
 	<meta property="og:title" content="Shaders">
 	<meta property="og:description" content="Interactive Web Shader Effects Playground">
+	<meta property="og:image" content="https://s24egao.github.io/web-shaders/preview.jpg">
+	<meta property="twitter:card" content="summary">
+	<meta property="twitter:image" content="https://s24egao.github.io/web-shaders/preview.jpg">
 	<link rel="icon" type="image" href="icon.png">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +22,7 @@
 			width: 100%;
 			height: 100%;
 			overflow: hidden;
-			background: black;
+			background: #eeeeee;
 			-webkit-user-select: none;
 		}
 
@@ -40,14 +43,17 @@
 
 		canvas {
 			width: 100%;
+			cursor: pointer;
 		}
 
 		#contents div {
-			margin: 20px;
+			margin: 10px;
+			overflow: hidden;
+			border-radius: 20px;
 		}
 	</style>
-	<div style="position: fixed; font: 300 36px 'Noto Sans TC'; color: white; center; padding: 30px; background: #111111; text-align: center; width: 100%;">Shader Playground</div>
-	<div id="contents" style="display: flex; justify-content: center; margin-top: 150px; flex-wrap: wrap;">
+	<div style="position: fixed; font: 300 36px 'Noto Sans TC'; color: #222222; center; padding: 30px; background: white; text-align: center; width: 100%;">Shader Playground</div>
+	<div id="contents" style="display: flex; justify-content: center; margin-top: 150px; flex-wrap: wrap; line-height: 0px;">
 		<div><canvas id="canvas1" width=300 height=300></canvas></div>
 		<div><canvas id="canvas2" width=300 height=300></canvas></div>
 		<div><canvas id="canvas3" width=300 height=300></canvas></div>
