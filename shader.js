@@ -18,7 +18,6 @@ function loadImage(gl, src) {
 			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
 			res(texture)
 		}
-		img.crossOrigin = ''
 		img.src = src
 	})
 }
