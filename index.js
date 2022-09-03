@@ -1,20 +1,4 @@
-let vert = `
-attribute vec3 position;
-attribute vec2 texcoord;
-
-varying vec3 vPosition;
-varying vec2 vTexcoord;
-	
-void main() {
-	vPosition = position;
-	vTexcoord = texcoord * vec2(1.0, -1.0) + vec2(0.0, 1.0);
-	gl_Position = vec4(position, 1.0);
-}
-`
-
-
-
-shader('#canvas1', vert, 
+shader('#canvas1', vertDefault, 
 `
 precision highp float;
 
@@ -54,7 +38,7 @@ void main() {
 
 
 
-shader('#canvas2', vert, 
+shader('#canvas2', vertDefault, 
 `
 precision highp float;
 
@@ -81,7 +65,7 @@ void main() {
 
 
 
-shader('#canvas3', vert, 
+shader('#canvas3', vertDefault, 
 `
 precision highp float;
 
@@ -115,7 +99,7 @@ void main() {
 
 
 
-shader('#canvas4', vert, 
+shader('#canvas4', vertDefault, 
 `
 precision highp float;
 
@@ -138,7 +122,7 @@ void main() {
 
 
 
-shader('#canvas5', vert, 
+shader('#canvas5', vertDefault, 
 `
 precision highp float;
 
@@ -168,7 +152,7 @@ void main() {
 
 
 
-shader('#canvas6', vert, 
+shader('#canvas6', vertDefault, 
 `
 precision highp float;
 
@@ -198,7 +182,7 @@ void main() {
 
 
 
-shader('#canvas7', vert, 
+shader('#canvas7', vertDefault, 
 `
 precision highp float;
 
@@ -232,7 +216,7 @@ void main() {
 
 
 
-shader('#canvas8', vert, 
+shader('#canvas8', vertDefault, 
 `
 precision highp float;
 

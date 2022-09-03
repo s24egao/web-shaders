@@ -1,32 +1,57 @@
+function attribute(gl, program, name, data, size) {
+	gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW)
+	let a = gl.getAttribLocation(program, name)
+	gl.vertexAttribPointer(a, size, gl.FLOAT, false, 0, 0)
+	gl.enableVertexAttribArray(a)
+}
+
+function loadImage(gl, src) {
+	return new Promise(res => {
+		let img = new Image()
+		img.onload = () => {
+			let texture = gl.createTexture()
+			gl.bindTexture(gl.TEXTURE_2D, texture)
+			gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img)
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
+			res(texture)
+		}
+		img.crossOrigin = ''
+		img.src = src
+	})
+}
+
+function lerp(a, b, f) {
+	return a + (b - a) * f
+}
+
+let vertDefault = 
+`
+attribute vec3 position;
+attribute vec2 texcoord;
+
+varying vec3 vPosition;
+varying vec2 vTexcoord;
+	
+void main() {
+	vPosition = position;
+	vTexcoord = texcoord * vec2(1.0, -1.0) + vec2(0.0, 1.0);
+	gl_Position = vec4(position, 1.0);
+}
+`
+
+let fragDefault =
+`
+precision highp float;
+
+void main() {
+	gl_FragColor = vec4(1.0);
+}
+`
+
 async function shader(id, vert, frag, data) {
-	function attribute(name, data, size) {
-		gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW)
-		let a = gl.getAttribLocation(program, name)
-		gl.vertexAttribPointer(a, size, gl.FLOAT, false, 0, 0)
-		gl.enableVertexAttribArray(a)
-	}
-
-	function loadImage(src) {
-		return new Promise(res => {
-			let img = new Image()
-			img.onload = () => {
-				let texture = gl.createTexture()
-				gl.bindTexture(gl.TEXTURE_2D, texture)
-				gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, img)
-				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE)
-				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE)
-				gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST)
-				res(texture)
-			}
-			img.src = src
-		})
-	}
-
-	function lerp(a, b, f) {
-		return a + (b - a) * f
-	}
-
 	let canvas = document.querySelector(id)
 	let gl = canvas.getContext('webgl')
 	
@@ -45,13 +70,13 @@ async function shader(id, vert, frag, data) {
 	gl.linkProgram(program)
 	gl.useProgram(program)
 
-	attribute('position', [ 
+	attribute(gl, program, 'position', [ 
 		-1, -1, 0,
 		-1, 1, 0,
 		1, -1, 0,
 		1, 1, 0 ], 3)
 
-	attribute('texcoord', [ 
+	attribute(gl, program, 'texcoord', [ 
 		0, 0,
 		0, 1,
 		1, 0,
@@ -84,10 +109,10 @@ async function shader(id, vert, frag, data) {
 		gl.uniform1f(mousehover, transition)
 	}, 20)
 
-	let url = data.image
+	let url = data?.image
 	let images = []
-	if(Array.isArray(url)) for(let u of url) images.push(await(loadImage(u)))
-	else if(url) images.push(await loadImage(url))
+	if(Array.isArray(url)) for(let u of url) images.push(await(loadImage(gl, u)))
+	else if(url) images.push(await loadImage(gl, url))
 
 	for(let i = 0; i < images.length; i++) {
 		gl.activeTexture(gl.TEXTURE0 + i)
@@ -100,11 +125,12 @@ async function shader(id, vert, frag, data) {
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
 		requestAnimationFrame(draw)
 	}
-	draw()
+	if(!data?.dontAutoPlay) draw()
 
 	return {
 		canvas: canvas,
 		gl: gl,
-		program: program
+		program: program,
+		play: draw
 	}
 }
