@@ -104,8 +104,8 @@ async function shader(id, vert, frag, data) {
 	if(Array.isArray(url)) for(let u of url) images.push(await(loadImage(gl, u)))
 	else if(url) images.push(await loadImage(gl, url))
 
-	for(let i = 0; i < Math.min(images.length, 4); i++) {
-		gl.activeTexture([gl.TEXTURE0, gl.TEXTURE1, gl.TEXTURE2, gl.TEXTURE3][i])
+	for(let i = 0; i < images.length; i++) {
+		gl.activeTexture(gl.TEXTURE0 + i)
 		gl.bindTexture(gl.TEXTURE_2D, images[i])
 		gl.uniform1i(gl.getUniformLocation(program, `texture${i}`), i)
 	}
