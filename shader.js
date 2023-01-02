@@ -86,6 +86,8 @@ async function shader(id, vert, frag, data) {
 	let mousehover = gl.getUniformLocation(program, 'mousehover')
 	canvas.addEventListener('mouseenter', () => ismousehover = true)
 	canvas.addEventListener('mouseleave', () =>  ismousehover = false)
+	canvas.addEventListener('touchstart', () => ismousehover = true)
+	addEventListener('touchend', () => ismousehover = false)
 
 	let time = gl.getUniformLocation(program, 'time')
 	let t = 0
