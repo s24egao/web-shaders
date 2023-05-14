@@ -1,4 +1,4 @@
-shader('#canvas1', vertDefault, 
+Shader.create('#canvas1', Shader.vertDefault, 
 `
 precision highp float;
 
@@ -38,7 +38,7 @@ void main() {
 
 
 
-shader('#canvas2', vertDefault, 
+Shader.create('#canvas2', Shader.vertDefault, 
 `
 precision highp float;
 
@@ -65,7 +65,7 @@ void main() {
 
 
 
-shader('#canvas3', vertDefault, 
+Shader.create('#canvas3',Shader.vertDefault, 
 `
 precision highp float;
 
@@ -99,7 +99,7 @@ void main() {
 
 
 
-shader('#canvas4', vertDefault, 
+Shader.create('#canvas4', Shader.vertDefault, 
 `
 precision highp float;
 
@@ -122,7 +122,7 @@ void main() {
 
 
 
-shader('#canvas5', vertDefault, 
+Shader.create('#canvas5', Shader.vertDefault, 
 `
 precision highp float;
 
@@ -152,7 +152,7 @@ void main() {
 
 
 
-shader('#canvas6', vertDefault, 
+Shader.create('#canvas6', Shader.vertDefault, 
 `
 precision highp float;
 
@@ -182,7 +182,7 @@ void main() {
 
 
 
-shader('#canvas7', vertDefault, 
+Shader.create('#canvas7', Shader.vertDefault, 
 `
 precision highp float;
 
@@ -216,7 +216,7 @@ void main() {
 
 
 
-shader('#canvas8', vertDefault, 
+Shader.create('#canvas8', Shader.vertDefault, 
 `
 precision highp float;
 
