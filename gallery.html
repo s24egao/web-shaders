@@ -107,7 +107,7 @@ void main() {
 	}
 
 	s.canvas.addEventListener('click', () => display((currentImage + 1) % images.length))
-	setInterval(() => s.gl.uniform1f(uniform, transition = lerp(transition, 0, 0.1)), 20)
+	setInterval(() => s.gl.uniform1f(uniform, transition += (0 - transition) * 0.1), 20)
 	s.gl.bindTexture(s.gl.TEXTURE_2D, images[0])
 	s.gl.uniform1i(s.gl.getUniformLocation(s.program, `texture1`), 0)
 	s.play()
